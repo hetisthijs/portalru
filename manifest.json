@@ -1,0 +1,35 @@
+{
+  "name": "RU Portal",
+  "description": "Radboud University site",
+  "version": "0.1",
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "browser_action": {
+    "default_icon": {
+        "19": "calculator-16.png",
+        "38": "calculator-128.png"
+    },
+    "default_title": "RU Portal",
+    "default_popup": "popup.html"
+	},
+	"background": {
+        "scripts": ["jquery.js", "background.js"],
+        "persistent": true
+    },
+    "content_scripts": [
+    {
+        "matches": ["https://*.ru.nl/*"],
+        "js": ["content.js"]
+    }],
+    "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://*.ru.nl/*", "http://*.ru.nl/*",
+    "https://*.nl/*",
+    "https://portal.ru.nl/*",
+    "downloads",
+    "cookies",
+    "storage"
+],
+  "icons": { "16": "calculator-16.png", "128": "calculator-128.png" }
+}
