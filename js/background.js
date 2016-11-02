@@ -12,45 +12,6 @@ chrome.webRequest.onBeforeRedirect.addListener(function(details) {
     }
 },{urls: ["https://portal.ru.nl/*"]});
 
-/*
-chrome.webRequest.onBeforeSendHeaders.addListener(
-	function(details) {
-		var url = details.url;
-		for (var i = 0; i < details.requestHeaders.length; ++i) {
-			if (details.requestHeaders[i].name === 'Origin' || details.requestHeaders[i].name === 'X-DevTools-Emulate-Network-Conditions-Client-Id' || details.requestHeaders[i].name === 'User-Agent') { //leaks extension
-				details.requestHeaders[i].name = "Access-Control-Allow-Origin";
-				details.requestHeaders[i].value = "*";
-			}
-		}
-		return {requestHeaders: details.requestHeaders};
-    },
-    {urls: ["https://portal.ru.nl/*"]},
-    ["blocking", "requestHeaders"]
-);
-*/
-
-/*
-$(document).ready(function() {
-	views = chrome.extension.getViews({type: "popup"});
-	for (var i = 0; i < views.length; i++) {
-		var v = views[i];
-		var iframe = v.createElement('iframe');
-		
-		alert(data);
-    }
-});*/
-
-// listening for an event / one-time requests
-// coming from the popup
-/**
- * Possible parameters for request:
- *  action: "xhttp" for a cross-origin HTTP request
- *  method: Default "GET"
- *  url   : required, but not validated
- *  data  : data to send in a POST request
- *
- * The callback function is called upon completion of the request */
-
 function makeXhttpRequest(request, sender, callback) {
     var xhttp = new XMLHttpRequest();
     var method = request.method ? request.method.toUpperCase() : 'GET';
@@ -59,8 +20,6 @@ function makeXhttpRequest(request, sender, callback) {
         callback(xhttp.responseText);
     };
     xhttp.onerror = function(err) {
-        // Do whatever you want on error. Don't forget to invoke the
-        // callback to clean up the communication port.
         callback();
     };
     xhttp.open(method, request.url, true);
