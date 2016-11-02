@@ -54,7 +54,15 @@ $(function() {
 			action: 'xhttp',
 			url: "https://portal.ru.nl/nl/c/portal/render_portlet?p_l_id=6828682&p_p_id=radboudexchangeportlet_WAR_RadboudExchangePortletportlet",
 		}, function(response) {
-            $('#widgetEmail').html(response);
+            let content = '';
+            $(".item", response).each(function() {
+                let title = $('h4 a', this).text();
+                let text = $('h4 a', this).attr('title');
+                let from = $('.from', this).text().trim();
+                let date = $('.date', this).text().trim();
+                content += '<a href="http://mail.ru.nl" target="_blank"><b>' + title + '</b></a><br /><small>' + text + '</small><br /><b>' + from + '</b><hr>';
+            });
+            $('#widgetEmail').html(content);
 		});
     };
     
@@ -64,7 +72,7 @@ $(function() {
 			url: "https://portal.ru.nl/nl/c/portal/render_portlet?p_l_id=6828682&p_p_id=roosterviewer_WAR_roosterviewerportlet",
 		}, function(response) {
             let content = '<table id="timetable">';
-            $(".event-item", response).each(function(index, element){
+            $(".event-item", response).each(function() {
                  let title = $('h4', this).html().split(' <span')[0] + '</a>';
                  let dayText = $('.event-date-day-text', this).text().trim();
                  let dayNumber = $('.event-date-day-number', this).text().trim();
@@ -83,10 +91,12 @@ $(function() {
 			action: 'xhttp',
 			url: 'https://portal.ru.nl/nl/group/home/studentportal'
 		}, function(response) {
-            let content = $("#portlet_blackboard_WAR_blackboardportlet", response).html();
-            chrome.runtime.sendMessage({
-                action: 'badge',
-                text: '5'
+            let portlet = $("#portlet_blackboard_WAR_blackboardportlet", response).html();
+            let content = '';
+            $(".item", portlet).each(function() {
+                let title = $('h4', this).html().split(' <span')[0] + '</a>';
+                let date = $('.date', this).text().replace('Blackboard','').trim();
+                content += '<b>' + title + '</b><br /><small>' + date + '</small><hr>';
             });
             $('#widgetBlackboard').html(content);
 		});
