@@ -1,30 +1,93 @@
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="popup.js"></script>
-<div style="width:640px">
-    
-    <div id="frontPage">
-        <button id="login">start</button>
-        <button id="emails">emails</button>
-        <button id="rooster">rooster</button>
-        <button id="blackboard">blackboard</button>
-        <div id="content"></div>
+<html>
+<head>
+    <title>Portal</title>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="popup.js"></script>
+    <link rel="stylesheet" type="text/css" href="aui.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <style>
+        body {
+            background-color: #B82B2B;
+            padding:0;
+            min-height:0;
+        }
+        #wrapper {
+            padding:0;
+        }
+        #heading {
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:640px">
+        
+        <div class="container-fluid" id="wrapper">
+            <header id="banner" role="banner">
+                <div id="heading">
+                <h1 class="site-title">
+                    <a href="https://portal.ru.nl/nl/group/home/studentportal" target="_blank">
+                        <img alt="Studentportal" height="28" src="logo_portal.png" width="222"></h1>
+                    </a>
+                </div>
+            </header>
+            
+            <div id="content">
+                <div class="radboud-columns-3" id="main-content" role="main">
+                    <div class="portlet-layout row-fluid">
+                        <div class="portlet-column portlet-column-first span4" id="column-1">
+                            <div class="portlet-dropzone portlet-column-content portlet-column-content-first" id="layout-column_column-1">
+                                <div class="portlet-boundary portlet-boundary_directnaar_WAR_directnaarportlet_ portlet-static portlet-static-end direct-naar-portlet ru-portlet " id="p_p_id_directnaar_WAR_directnaarportlet_">
+                                    <section class="portlet" id="portlet_directnaar_WAR_directnaarportlet"><div class="portlet-content"> <div class=" portlet-content-container" style=""> <div class="portlet-body">
+                                        
+                                        <div id="frontPage">
+                                            <h1>Rooster</h1>
+                                            <div id="widgetRooster">
+                                                <img src="loading.svg" alt="Loading" />
+                                            </div>
+                                            <h1>Blackboard</h1>
+                                            <div id="widgetBlackboard">
+                                                <img src="loading.svg" alt="Loading" />
+                                            </div>
+                                            <h1>Email</h1>
+                                            <div id="widgetEmail">
+                                                <img src="loading.svg" alt="Loading" />
+                                            </div>
+                                        </div>
+                                        
+                                         <div id="loginForm">
+                                            <h1>Aanmelden</h1>
+                                            <table>
+                                                <tr>
+                                                    <td>Gebruikersnaam:</td>
+                                                    <td><input type="text" name="username" placeholder="s"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Wachtwoord:</td>
+                                                    <td><input type="password" name="password"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <input type="submit" value="Aanmelden" id="submitLoginForm" class="btn btn-primary">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        
+                                     </div> </div> </div> </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            
+            
+            
+        
+        </div>
     </div>
-    
-    <div id="loginForm" style="display:none;">
-        <h1>Login</h1>
-        <table>
-            <tr>
-                <td>S-nummer:</td>
-                <td><input type="text" name="username" placeholder="s"></td>
-            </tr>
-            <tr>
-                <td>Wachtwoord:</td>
-                <td><input type="password" name="password"></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Submit" id="submitLoginForm"></td>
-            </tr>
-        </table>
-    </div>
-    
-</div>
+</body>
+</html>
+

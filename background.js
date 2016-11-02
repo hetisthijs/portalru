@@ -1,32 +1,12 @@
-let loggedIn = false;
-
-/*
-chrome.webRequest.onBeforeRedirect.addListener(function() { //redirect = not logged in
-    chrome.storage.sync.get('username', function(details) {
-        console.log(details);
-      if (details) {
-        loginAction();
-      } else {
-        setView('login');
-      }
-    });
-},{urls: ["https://portal.ru.nl/*"]});
-
-setView = function(view) {
-    console.log(view);
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ //send new view to content
-       chrome.tabs.sendMessage(tabs[0].id, {view: view}, function(response) {}); 
-    });
-}*/
-
-chrome.webRequest.onBeforeRequest.addListener(function(details) {
+chrome.webRequest.onBeforeRedirect.addListener(function(details) {
     var type = details.type;
-    if(type == 'xmlhttprequest') {
+    if(type == 'xmlhttprequest' && details.url != 'https://portal.ru.nl/home') {
         makeXhttpRequest({
             action: 'xhttp',
             url: 'https://portal.ru.nl/home'
         }, null, function(response) {
             if ($('.signed-in', response).length == 0) { //not logged in yet
+                alert('not signed in');
                 login();
             }
         });
@@ -102,8 +82,7 @@ function makeXhttpRequest(request, sender, callback) {
 chrome.runtime.onMessage.addListener(function(request, sender, callback) {
     switch(request.action) {
         case 'login':
-            if (!loggedIn)
-                login();
+            login();
             break;
         case 'badge':
             chrome.browserAction.setBadgeText({text: request.text});
@@ -116,6 +95,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, callback) {
             break;
     }
 });
+
+onLoad = function() {
+    //check if logged in
+    // if not: check if user and pass are saved
+    //   if not: show login view
+    // else login and show home view afterwards
+}
 
 login = function() {
     chrome.storage.sync.get(['username','password'], function(object) {
@@ -140,26 +126,12 @@ login = function() {
                     url: formAction,
                     data: '_58_formDate='+formDate+'&_58_login='+username+'&_58_password='+password
                 }, null, function(response) {
-                    loggedIn = true;
-                    chrome.runtime.sendMessage({action: 'setView', text: 'home'}); //switches view if needed;
+                    chrome.runtime.sendMessage({action: 'setView', text: 'home'});
                 });
             });        
     });
 
 };
- 
- 
-// send a message to the content script
-var sendToContent = function(reqtype) {
-	/*
-    chrome.tabs.getSelected(null, function(tab){
-        chrome.tabs.sendMessage(tab.id, {type: reqtype, vids: VIDS});
-        // setting a badge
-        chrome.browserAction.setBadgeText({text: "red!"});
-    });
-    */
-}
-
 
 login();
 

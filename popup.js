@@ -13,15 +13,6 @@ $(function() {
           chrome.runtime.sendMessage({action: 'login'});
         });
 	};
-	document.getElementById("emails").onclick = function() {
-		viewEmails();
-	};
-    document.getElementById("blackboard").onclick = function() {
-		viewBlackboard();
-	};
-    document.getElementById("rooster").onclick = function() {
-		viewRooster();
-	};
     
     setView = function(view) {
         switch(view) {
@@ -32,31 +23,34 @@ $(function() {
             case 'home':
                 $('#frontPage').show();
                 $('#loginForm').hide();
+                loadEmail();
+                loadRooster();
+                loadBlackboard();
                 break;
         }
     }
     
-    viewEmails = function() {
+    loadEmail = function() {
         chrome.runtime.sendMessage({
 			action: 'xhttp',
 			method: 'post',
 			url: "https://portal.ru.nl/nl/c/portal/render_portlet?p_l_id=6828682&p_p_id=radboudexchangeportlet_WAR_RadboudExchangePortletportlet",
 		}, function(response) {
-            showContent(response);
+            $('#widgetEmail').html(response);
 		});
     }
     
-    viewRooster = function() {
+    loadRooster = function() {
         chrome.runtime.sendMessage({
 			action: 'xhttp',
 			method: 'post',
 			url: "https://portal.ru.nl/nl/c/portal/render_portlet?p_l_id=6828682&p_p_id=roosterviewer_WAR_roosterviewerportlet",
 		}, function(response) {
-            showContent(response); 
+            $('#widgetRooster').html(response);
 		});
     }
 
-    viewBlackboard = function(response) {
+    loadBlackboard = function(response) {
         chrome.runtime.sendMessage({
 			action: 'xhttp',
 			url: 'https://portal.ru.nl/nl/group/home/studentportal'
@@ -66,32 +60,8 @@ $(function() {
                 action: 'badge',
                 text: '5'
             });
-            showContent(content);
+            $('#widgetBlackboard').html(content);
 		});
-    }
-	
-	getContents = function() {
-		//$('#wv').attr('src', 'https://portal.ru.nl/group/home/studentportal');
-		var contents = $('#wv').contents().find("html").html();
-		console.log(contents);
-		alert(contents);
-		/*
-		chrome.runtime.sendMessage({
-			action: 'xhttp',
-			url: 'https://portal.ru.nl/nl/group/home/studentportal'
-		}, function(response) {
-			
-			var elements = $(response);
-			
-			var blackboard = $('.item > a', elements).attr('href');
-			alert(blackboard);
-			window.open(blackboard, '_blank');
-		});
-		*/
-	}
-    
-    showContent = function(response) {
-        $('#content').html(response);
     }
     
     chrome.runtime.onMessage.addListener(function(request, sender, callback) {
