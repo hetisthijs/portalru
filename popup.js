@@ -1,18 +1,18 @@
 // popup.js
 $(function() {
-    loginSubmit = function() {
-        let username = $('input[name=username]').val();
-        let password = $('input[name=password]').val();
-        chrome.storage.sync.set({'username': username, 'password': password}, function() {
-          message('Settings saved');
-          chrome.runtime.sendMessage({action: 'login'});
-        });
-    }
-	
+    
     $(document).ready(function() {
-        chrome.runtime.sendMessage({action: 'login'});
+        chrome.runtime.sendMessage({action: 'login'}); //switches view if needed
     });
     
+    document.getElementById("submitLoginForm").onclick = function() {
+		let username = $('input[name=username]').val();
+        let password = $('input[name=password]').val();
+        chrome.storage.sync.set({username, password}, function() {
+          alert('Settings saved');
+          chrome.runtime.sendMessage({action: 'login'});
+        });
+	};
 	document.getElementById("emails").onclick = function() {
 		viewEmails();
 	};
@@ -22,6 +22,19 @@ $(function() {
     document.getElementById("rooster").onclick = function() {
 		viewRooster();
 	};
+    
+    setView = function(view) {
+        switch(view) {
+            case 'login':
+                $('#loginForm').show();
+                $('#frontPage').hide();
+                break;
+            case 'home':
+                $('#frontPage').show();
+                $('#loginForm').hide();
+                break;
+        }
+    }
     
     viewEmails = function() {
         chrome.runtime.sendMessage({
@@ -80,5 +93,13 @@ $(function() {
     showContent = function(response) {
         $('#content').html(response);
     }
+    
+    chrome.runtime.onMessage.addListener(function(request, sender, callback) {
+        switch(request.action) {
+            case 'setView':
+                setView(request.text);
+                break;
+        }
+    });
 });
 

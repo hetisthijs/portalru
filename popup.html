@@ -9,10 +9,22 @@
         <button id="blackboard">blackboard</button>
         <div id="content"></div>
     </div>
+    
     <div id="loginForm" style="display:none;">
-        <input type="text" name="username">
-        <input type="password" name="password">
-        <input type="submit" value="Submit" onclick="loginSubmit()">
+        <h1>Login</h1>
+        <table>
+            <tr>
+                <td>S-nummer:</td>
+                <td><input type="text" name="username" placeholder="s"></td>
+            </tr>
+            <tr>
+                <td>Wachtwoord:</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Submit" id="submitLoginForm"></td>
+            </tr>
+        </table>
     </div>
     
 </div>
