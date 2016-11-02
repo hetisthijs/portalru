@@ -1,35 +1,5 @@
 let loggedIn = false;
-    loginAction = function() {
-    //chrome.storage.sync.get(['username','password'], function(object) {
-       // console.log(object);
-       // let username = object.username;
-       // let password = object.password;
-        //if (!username || !password) return;
-        
-        chrome.runtime.sendMessage({
-                action: 'xhttp',
-                url: 'https://portal.ru.nl/home'
-            }, function(response) {
-                var elements = $(response);
-                var formAction = $('#_58_fm', elements).attr('action');
-                var formDate = $('input[name=_58_formDate]', elements).val();
-                
-                chrome.runtime.sendMessage({
-                    action: 'xhttp',
-                    method: 'post',
-                    url: formAction,
-                    data: '_58_formDate='+formDate+'&_58_login=&_58_password='
-                }, function(response) {
-                    if (response) { //if equals certain value
-                        let loggedIn = true;
-                    }
-                });
-            });        
-    //});
 
-};
-
-loginAction();
 /*
 chrome.webRequest.onBeforeRedirect.addListener(function() { //redirect = not logged in
     chrome.storage.sync.get('username', function(details) {
@@ -102,6 +72,29 @@ $(document).ready(function() {
  *  data  : data to send in a POST request
  *
  * The callback function is called upon completion of the request */
+
+function makeXhttpRequest(request, sender, callback) {
+    var xhttp = new XMLHttpRequest();
+    var method = request.method ? request.method.toUpperCase() : 'GET';
+
+    xhttp.onload = function() {
+        callback(xhttp.responseText);
+    };
+    xhttp.onerror = function(err) {
+        // Do whatever you want on error. Don't forget to invoke the
+        // callback to clean up the communication port.
+        callback();
+    };
+    xhttp.open(method, request.url, true);
+    xhttp.withCredentials = true;
+    if (method == 'POST') {
+        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    }
+    xhttp.send(request.data);
+    return true; // prevents the callback from being called too early on return
+    
+}
+ 
 chrome.runtime.onMessage.addListener(function(request, sender, callback) {
     switch(request.action) {
         case 'login':
@@ -113,29 +106,40 @@ chrome.runtime.onMessage.addListener(function(request, sender, callback) {
             chrome.browserAction.setBadgeBackgroundColor({color: 'red'});
             break;
         case 'xhttp':
-            var xhttp = new XMLHttpRequest();
-            var method = request.method ? request.method.toUpperCase() : 'GET';
-
-            xhttp.onload = function() {
-                callback(xhttp.responseText);
-            };
-            xhttp.onerror = function(err) {
-                // Do whatever you want on error. Don't forget to invoke the
-                // callback to clean up the communication port.
-                callback();
-            };
-            xhttp.open(method, request.url, true);
-            xhttp.withCredentials = true;
-            if (method == 'POST') {
-                xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            }
-            xhttp.send(request.data);
-            return true; // prevents the callback from being called too early on return
+            return makeXhttpRequest(request, sender, callback);
             break;
     }
 });
 
-        
+loginAction = function() {
+//chrome.storage.sync.get(['username','password'], function(object) {
+   // console.log(object);
+   // let username = object.username;
+   // let password = object.password;
+    //if (!username || !password) return;
+    
+    makeXhttpRequest({
+            action: 'xhttp',
+            url: 'https://portal.ru.nl/home'
+        }, null, function(response) {
+            var elements = $(response);
+            var formAction = $('#_58_fm', elements).attr('action');
+            var formDate = $('input[name=_58_formDate]', elements).val();
+            
+            makeXhttpRequest({
+                action: 'xhttp',
+                method: 'post',
+                url: formAction,
+                data: '_58_formDate='+formDate+'&_58_login='
+            }, null, function(response) {
+                if (response) { //if equals certain value
+                    loggedIn = true;
+                }
+            });
+        });        
+//});
+
+};
  
  
 // send a message to the content script
@@ -148,3 +152,7 @@ var sendToContent = function(reqtype) {
     });
     */
 }
+
+
+loginAction();
+
