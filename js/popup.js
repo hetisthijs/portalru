@@ -28,9 +28,9 @@ $(function() {
                 $('#frontPage').show();
                 $('#logout').show();
                 $('#loginForm').hide();
-                loadEmail();
-                loadRooster();
                 loadBlackboard();
+                loadRooster();
+                loadEmail();
                 break;
         }
     };
@@ -60,7 +60,7 @@ $(function() {
                 let text = $('h4 a', this).attr('title');
                 let from = $('.from', this).text().trim();
                 let date = $('.date', this).text().trim();
-                content += '<a href="http://mail.ru.nl" target="_blank"><b>' + title + '</b></a><br /><small>' + text + '</small><br /><b>' + from + '</b><hr>';
+                content += '<small>'+ date +'</small><br /><a href="http://mail.ru.nl" target="_blank"><b>' + title + ' [' + from + ']</b></a><br /><small>' + text + '</small><br /><hr>';
             });
             $('#widgetEmail').html(content);
 		});

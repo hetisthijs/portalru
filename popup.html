@@ -26,8 +26,14 @@
         #timetable {
             width: 100%;
         }
+        #logintable {
+            width: 70%;
+        }
         .portlet .portlet-content a:link {
             text-decoration: none;
+        }
+        #widgetEmail {
+            line-height:150%;
         }
     </style>
 </head>
@@ -68,9 +74,9 @@
                                             </div>
                                         </div>
                                         
-                                         <div id="loginForm">
+                                         <div id="loginForm" style="display:none">
                                             <h1>Aanmelden</h1>
-                                            <table>
+                                            <table id="logintable">
                                                 <tr>
                                                     <td>Gebruikersnaam:</td>
                                                     <td><input type="text" name="username" placeholder="s"></td>
@@ -81,7 +87,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">
-                                                        <input type="submit" value="Aanmelden" id="submitLoginForm" class="btn btn-primary">
+                                                        <br /><input type="submit" value="Aanmelden" id="submitLoginForm" class="btn btn-primary">
                                                     </td>
                                                 </tr>
                                             </table>
