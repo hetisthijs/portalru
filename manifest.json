@@ -1,5 +1,5 @@
 {
-  "name": "Radboud University Quick Portal",
+  "name": "Radboud University Portal",
   "description": "Quick access to all Student data from Radboud University (Timetable, Blackboard and more)",
   "version": "0.1",
   "manifest_version": 2,
@@ -9,7 +9,7 @@
         "19": "images/icon-16.png",
         "38": "images/icon-128.png"
     },
-    "default_title": "Radboud University Quick Portal",
+    "default_title": "Radboud University Portal",
     "default_popup": "popup.html"
 	},
 	"background": {

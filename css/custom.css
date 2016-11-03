@@ -23,6 +23,9 @@ table#logintable {
 .portlet .portlet-content a:link {
     text-decoration: none;
 }
+.portlet .portlet-content a:hover {
+    color: #B82B2B !important;
+}
 div#widgetEmail {
     line-height: 150%;
 }
