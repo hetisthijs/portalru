@@ -1,0 +1,40 @@
+body {
+    background-color: #B82B2B;
+    padding: 0;
+    min-height: 0;
+    font-size: 13px !important;
+}
+#wrapper {
+    padding: 0;
+}
+#heading {
+    padding-left: 10px;
+}
+a#logout {
+    float: right;
+    margin:-20px 10px 0 0;
+}
+table#timetable {
+    width: 100%;
+}
+table#logintable {
+    width: 70%;
+}
+.portlet .portlet-content a:link {
+    text-decoration: none;
+}
+div#widgetEmail {
+    line-height: 150%;
+}
+.loading {
+    width: 24px;
+}
+.emailText {
+    display: none;
+}
+h1 a {
+    color: black !important;
+}
+h1 a:hover {
+    color: #B82B2B !important;
+}

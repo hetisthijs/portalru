@@ -55,14 +55,18 @@ $(function() {
 			url: "https://portal.ru.nl/nl/c/portal/render_portlet?p_l_id=6828682&p_p_id=radboudexchangeportlet_WAR_RadboudExchangePortletportlet",
 		}, function(response) {
             let content = '';
-            $(".item", response).each(function() {
+            $(".item", response).each(function(index) {
                 let title = $('h4 a', this).text();
                 let text = $('h4 a', this).attr('title');
                 let from = $('.from', this).text().trim();
                 let date = $('.date', this).text().trim();
-                content += '<small>'+ date +'</small><br /><a href="http://mail.ru.nl" target="_blank"><b>' + title + ' [' + from + ']</b></a><br /><small>' + text + '</small><br /><hr>';
+                content += '<small>'+ date +'</small><div class="email"><a href="http://mail.ru.nl" target="_blank"><b>' + title + ' [' + from + ']</b></a><br /><span class="emailText"><small>' + text + '</small></span></div><hr>';
             });
             $('#widgetEmail').html(content);
+            
+            $(".email").mouseover(function() {
+                $(".emailText", this).slideDown();
+            });
 		});
     };
     

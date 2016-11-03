@@ -1,15 +1,15 @@
 {
-  "name": "RU Portal",
-  "description": "Radboud University site",
+  "name": "Radboud University Quick Portal",
+  "description": "Quick access to all Student data from Radboud University (Timetable, Blackboard and more)",
   "version": "0.1",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "browser_action": {
     "default_icon": {
-        "19": "images/calculator-16.png",
-        "38": "images/calculator-128.png"
+        "19": "images/icon-16.png",
+        "38": "images/icon-128.png"
     },
-    "default_title": "RU Portal",
+    "default_title": "Radboud University Quick Portal",
     "default_popup": "popup.html"
 	},
 	"background": {
@@ -23,13 +23,9 @@
     }],
     "permissions": [
     "webRequest",
-    "webRequestBlocking",
-    "https://*.ru.nl/*", "http://*.ru.nl/*",
-    "https://*.nl/*",
     "https://portal.ru.nl/*",
-    "downloads",
     "cookies",
     "storage"
 ],
-  "icons": { "16": "images/calculator-16.png", "128": "images/calculator-128.png" }
+  "icons": { "16": "images/icon-16.png", "128": "images/icon-128.png" }
 }
