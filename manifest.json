@@ -1,7 +1,7 @@
 {
   "name": "Radboud Universiteit Portal",
   "description": "Direct toegang tot het Studentportal met het rooster, blackboard en emails.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "browser_action": {
@@ -16,11 +16,6 @@
         "scripts": ["js/jquery.js", "js/background.js"],
         "persistent": true
     },
-    "content_scripts": [
-    {
-        "matches": ["https://*.ru.nl/*"],
-        "js": ["js/content.js"]
-    }],
     "permissions": [
     "webRequest",
     "https://portal.ru.nl/*",
