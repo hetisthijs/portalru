@@ -10,12 +10,12 @@ $(function() {
     };
     
     document.getElementById("submitLoginForm").onclick = function() {
-		let username = $('input[name=username]').val();
+        let username = $('input[name=username]').val();
         let password = $('input[name=password]').val();
         chrome.storage.sync.set({username, password}, function() {
           chrome.runtime.sendMessage({action: 'login'});
         });
-	};
+    };
     
     setView = function(view) {
         switch(view) {
@@ -51,9 +51,9 @@ $(function() {
     
     loadEmail = function() {
         chrome.runtime.sendMessage({
-			action: 'xhttp',
-			url: "https://portal.ru.nl/nl/c/portal/render_portlet?p_l_id=6828682&p_p_id=radboudexchangeportlet_WAR_RadboudExchangePortletportlet",
-		}, function(response) {
+            action: 'xhttp',
+            url: "https://portal.ru.nl/nl/c/portal/render_portlet?p_l_id=6828682&p_p_id=radboudexchangeportlet_WAR_RadboudExchangePortletportlet",
+        }, function(response) {
             let content = '';
             $(".item", response).each(function(index) {
                 let title = $('h4 a', this).text();
@@ -67,14 +67,14 @@ $(function() {
             $(".email").mouseover(function() {
                 $(".emailText", this).slideDown();
             });
-		});
+        });
     };
     
     loadRooster = function() {
         chrome.runtime.sendMessage({
-			action: 'xhttp',
-			url: "https://portal.ru.nl/nl/c/portal/render_portlet?p_l_id=6828682&p_p_id=roosterviewer_WAR_roosterviewerportlet",
-		}, function(response) {
+            action: 'xhttp',
+            url: "https://portal.ru.nl/nl/c/portal/render_portlet?p_l_id=6828682&p_p_id=roosterviewer_WAR_roosterviewerportlet",
+        }, function(response) {
             let content = '<table id="timetable">';
             $(".event-item", response).each(function() {
                  let title = $('h4', this).html().split(' <span')[0] + '</a>';
@@ -87,14 +87,14 @@ $(function() {
             });
             content += '</table>';
             $('#widgetRooster').html(content);
-		});
+        });
     };
 
     loadBlackboard = function(response) {
         chrome.runtime.sendMessage({
-			action: 'xhttp',
-			url: 'https://portal.ru.nl/nl/group/home/studentportal'
-		}, function(response) {
+            action: 'xhttp',
+            url: 'https://portal.ru.nl/nl/group/home/studentportal'
+        }, function(response) {
             let portlet = $("#portlet_blackboard_WAR_blackboardportlet", response).html();
             let content = '';
             $(".item", portlet).each(function() {
@@ -103,7 +103,7 @@ $(function() {
                 content += '<b>' + title + '</b><br /><small>' + date + '</small><hr>';
             });
             $('#widgetBlackboard').html(content);
-		});
+        });
     };
     
     chrome.runtime.onMessage.addListener(function(request, sender, callback) {
