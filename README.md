@@ -1,4 +1,4 @@
 # Radboud University Portal
-Chrome extension for Radboud University Student Portal to quickly see all notifications (Timetable, Blackboard and more)
+Chrome extension for Radboud University Student Portal to quickly see all notifications (schedule, Blackboard and more)
 
-![Screenshot](https://github.com/hetisthijs/portalru/blob/master/screenshot.png?raw=true)
+![Screenshot](https://github.com/hetisthijs/portalru/blob/master/release/screenshot.png?raw=true)
