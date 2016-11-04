@@ -1,7 +1,7 @@
 {
-  "name": "Radboud University Portal",
-  "description": "Quick access to all Student data from Radboud University (Timetable, Blackboard and more)",
-  "version": "0.1",
+  "name": "Radboud Universiteit Portal",
+  "description": "Direct toegang tot de Studentportal met het rooster, blackboard en emails.",
+  "version": "1.0.1",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "browser_action": {
