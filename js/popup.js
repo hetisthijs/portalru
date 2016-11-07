@@ -1,21 +1,17 @@
-// popup.js
 $(function() {
+    chrome.runtime.sendMessage({action: 'login'}); //switches view if needed
     
-    $(document).ready(function() {
-        chrome.runtime.sendMessage({action: 'login'}); //switches view if needed
+    $('#logout').click(function() {
+        chrome.runtime.sendMessage({action: 'logout'});
     });
     
-    document.getElementById("logout").onclick = function() {
-        chrome.runtime.sendMessage({action: 'logout'});
-    };
-    
-    document.getElementById("submitLoginForm").onclick = function() {
+    $('#login').click(function() {
         let username = $('input[name=username]').val();
         let password = $('input[name=password]').val();
         chrome.storage.sync.set({username, password}, function() {
           chrome.runtime.sendMessage({action: 'login'});
         });
-    };
+    });
     
     setView = function(view) {
         switch(view) {
@@ -28,6 +24,7 @@ $(function() {
                 $('#frontPage').show();
                 $('#logout').show();
                 $('#loginForm').hide();
+                $('#alert').hide();
                 loadBlackboard();
                 loadRooster();
                 loadEmail();
@@ -95,6 +92,7 @@ $(function() {
             action: 'xhttp',
             url: 'https://portal.ru.nl/nl/group/home/studentportal'
         }, function(response) {
+            $('#widgetBlackboard').html('abc');
             let portlet = $("#portlet_blackboard_WAR_blackboardportlet", response).html();
             let content = '';
             $(".item", portlet).each(function() {
@@ -103,6 +101,10 @@ $(function() {
                 content += '<b>' + title + '</b><br /><small>' + date + '</small><hr>';
             });
             $('#widgetBlackboard').html(content);
+            
+            if (content.trim() === '') {
+                showAlert();
+            }
         });
     };
     
@@ -111,7 +113,18 @@ $(function() {
             case 'setView':
                 setView(request.text);
                 break;
+            case 'close':
+                self.close();
+                break;
         }
     });
+
+    showAlert = function() {
+        $('#alert').show();
+        $('#alert').click(function() {
+            chrome.runtime.sendMessage({action: 'logout'});
+        });
+    }
+
 });
 

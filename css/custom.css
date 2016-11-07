@@ -29,6 +29,13 @@ table#logintable {
 div#widgetEmail {
     line-height: 150%;
 }
+div#alert {
+    font-weight:bold;
+    padding: 10px;
+    color: red;
+    font-size:1.1em;
+    display: none;
+}
 .loading {
     width: 24px;
 }

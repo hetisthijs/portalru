@@ -1,4 +1,4 @@
-chrome.webRequest.onBeforeRedirect.addListener(function(details) {
+/*chrome.webRequest.onBeforeRedirect.addListener(function(details) {
     var type = details.type;
     if(type == 'xmlhttprequest' && details.url != 'https://portal.ru.nl/home') {
         makeXhttpRequest({
@@ -10,7 +10,7 @@ chrome.webRequest.onBeforeRedirect.addListener(function(details) {
             }
         });
     }
-},{urls: ["https://portal.ru.nl/*"]});
+},{urls: ["https://portal.ru.nl/*"]});*/
 
 function makeXhttpRequest(request, sender, callback) {
     var xhttp = new XMLHttpRequest();
@@ -84,12 +84,11 @@ login = function() {
 
 logout = function() {
     chrome.storage.sync.remove(['username', 'password']);
-    chrome.runtime.sendMessage({action: 'setView', text: 'login'});
     makeXhttpRequest({
         action: 'xhttp',
         url: 'https://portal.ru.nl/c/portal/logout'
     }, null, function(response) {});
-    
+    chrome.runtime.sendMessage({action: 'setView', text: 'login'});
 }
 
 login();
