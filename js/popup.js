@@ -35,13 +35,14 @@ $(function() {
     dayToNL = function(text, number) {
         let today = new Date().getDate();
         let eng = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+        let short = ['ma', 'di', 'wo', 'do', 'vr'];
         let dutch = ['maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag'];
         if (number == today)
             return 'vandaag';
         if (number == today+1)
             return 'morgen';
         for (let i = 0; i < eng.length; i++) {
-            if (eng[i] === text)
+            if (eng[i] === text || short[i] === text)
                 return dutch[i];
         }
     };
