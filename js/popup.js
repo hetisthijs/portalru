@@ -45,6 +45,7 @@ $(function() {
             if (eng[i] === text || short[i] === text)
                 return dutch[i];
         }
+        return text;
     };
     
     loadEmail = function() {
